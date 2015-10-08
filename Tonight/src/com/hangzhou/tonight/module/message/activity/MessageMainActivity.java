@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.hangzhou.tonight.R;
 import com.hangzhou.tonight.adapter.NoticeAdapter;
@@ -49,8 +50,7 @@ public class MessageMainActivity extends CustomActionActivity{
 	}
 	
 	
-	@Override
-	protected void onResume() {
+	@Override protected void onResume() {
 		super.onResume();
 		
 		// 注册广播接收器
@@ -62,8 +62,7 @@ public class MessageMainActivity extends CustomActionActivity{
 		
 	}
 	
-	@Override
-	protected void onPause() {
+	@Override protected void onPause() {
 		// 卸载广播接收器
 		unregisterReceiver(receiver);
 		super.onPause();
@@ -83,13 +82,10 @@ public class MessageMainActivity extends CustomActionActivity{
 		init();
 	}
 	
-	
 	private void init() {
 		receiver = new ContacterReceiver();
 		noticeManager = NoticeManager.getInstance(getActivity());
 	}
-	
-	
 	
 	OnClickListener itemClick = new OnClickListener() {
 		@Override public void onClick(View v) {
@@ -116,6 +112,7 @@ public class MessageMainActivity extends CustomActionActivity{
 		public void onReceive(Context context, Intent intent) {
 			Notice notice = (Notice) intent.getSerializableExtra("notice");
 			// String action = intent.getAction();
+			Toast.makeText(MessageMainActivity.this, "有新消息", Toast.LENGTH_LONG).show();
 		}
 	}
 	
